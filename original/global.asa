@@ -1,0 +1,34 @@
+<SCRIPT LANGUAGE=VBScript RUNAT=Server>
+Option Explicit
+
+	Sub Session_OnStart
+		session.timeout = 12
+	End Sub
+
+Sub Session_OnEnd
+
+	Dim cn 
+	Dim rs 
+	Dim vSearchStr
+
+	Set cn = server.createobject("ADODB.Connection")
+	Set rs = server.createobject("ADODB.Recordset")
+
+	cn.Open "DSN=mykasadel"
+
+			vSearchStr= "SELECT * FROM security WHERE session_id= '" + CStr(Session.SessionID) + "'"							
+
+	rs.Open vSearchStr, cn, 3, 3
+	If Not rs.EOF	then
+		rs.Fields("session_id")="0"
+   		rs.update
+	End If
+	rs.close
+	cn.close
+	Set rs = Nothing
+	Set cn = Nothing
+
+End Sub
+	
+
+</Script>
