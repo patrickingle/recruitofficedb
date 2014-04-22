@@ -13,6 +13,7 @@ if ( ! is_user_logged_in() ) { // Display WordPress login form:
     );
     wp_login_form( $args );
 } else { // If logged in:
+	require dirname(__FILE__).'/main.php';
 }
 ?>
 

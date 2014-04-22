@@ -105,23 +105,71 @@ function rms_create_tables() {
   `max_institute` varchar(26) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 	$wpdb->query($sql);
-
-	$sql = "CREATE TABLE IF NOT EXISTS `".$wpdb->prefix."rms_security` (
-  `login` varchar(6) DEFAULT NULL,
-  `password` varchar(7) DEFAULT NULL,
-  `privilege` varchar(10) DEFAULT NULL,
-  `session_id` int(1) DEFAULT NULL,
-  `user_id` int(1) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
-	$wpdb->query($sql);
-	
-	$sql = "INSERT INTO `security` (`login`, `password`, `privilege`, `session_id`) VALUES
-('admin', 'password', 'admin', 0);";
-	$wpdb->query($sql);
 	
 	add_role('rms_admin','RMS Admin',array('rms_admin' => true));
-	add_role('rms_recruiter','RMS Recruiter',array('rms_add_update' => true));
+	add_role('rms_recruiter','RMS Recruiter',array('rms_add_update' => true,'rms_add_can'=>true,'rms_add_emp'=>true));
 	add_role('rms_guest','RMS Guest',array('rms_read_only' => true));
 	
+	global $user_ID;
+	
+	$page = array(
+		'post_type' => 'page',
+		'post_content' => '',
+		'post_parent' => 0,
+		'post_author' => $user_ID,
+		'post_status' => 'publish',
+		'post_name' => 'users',
+		'post_title' => 'users',
+		'page_template' => 'users.php'
+	);
+	wp_insert_post($page);
+
+	$page = array(
+		'post_type' => 'page',
+		'post_content' => '',
+		'post_parent' => 0,
+		'post_author' => $user_ID,
+		'post_status' => 'publish',
+		'post_name' => 'can',
+		'post_title' => 'can',
+		'page_template' => 'candidates.php'
+	);
+	wp_insert_post($page);
+
+	$page = array(
+		'post_type' => 'page',
+		'post_content' => '',
+		'post_parent' => 0,
+		'post_author' => $user_ID,
+		'post_status' => 'publish',
+		'post_name' => 'clients',
+		'post_title' => 'clients',
+		'page_template' => 'clients.php'
+	);
+	wp_insert_post($page);
+
+	$page = array(
+		'post_type' => 'page',
+		'post_content' => '',
+		'post_parent' => 0,
+		'post_author' => $user_ID,
+		'post_status' => 'publish',
+		'post_name' => 'emp',
+		'post_title' => 'emp',
+		'page_template' => 'employees.php'
+	);
+	wp_insert_post($page);
+
+	$page = array(
+		'post_type' => 'page',
+		'post_content' => '',
+		'post_parent' => 0,
+		'post_author' => $user_ID,
+		'post_status' => 'publish',
+		'post_name' => 'spview',
+		'post_title' => 'spview',
+		'page_template' => 'special-view.php'
+	);
+	wp_insert_post($page);
 }
 ?>
