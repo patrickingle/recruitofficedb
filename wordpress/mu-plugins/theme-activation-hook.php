@@ -119,5 +119,9 @@ function rms_create_tables() {
 ('admin', 'password', 'admin', 0);";
 	$wpdb->query($sql);
 	
+	add_role('rms_admin','RMS Admin',array('rms_admin' => true));
+	add_role('rms_recruiter','RMS Recruiter',array('rms_add_update' => true));
+	add_role('rms_guest','RMS Guest',array('rms_read_only' => true));
+	
 }
 ?>

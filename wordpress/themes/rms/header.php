@@ -48,7 +48,14 @@ function out() {
     <td width="17%" rowspan="2" align="center">
       <p align="center"><img border="2" src="<?php  echo get_stylesheet_directory_uri(); ?>/logo.jpg" align="left" onmouseover="over()" onmouseout="out()" style="filter:alpha(opacity=100)" width="136" height="40"></td>
     <td width="83%">
-      <p align="right"><b><a href="index.php?signoff">SignOff</a></b></td>
+      <p align="right">
+      <b>
+<?php
+		if ( is_user_logged_in() ) { // Display WordPress login form:
+    		wp_loginout( home_url() ); // Display "Log Out" link.
+      	}
+?>
+      </b></td>
   </tr>
   <tr>
     <td width="83%"></td>
