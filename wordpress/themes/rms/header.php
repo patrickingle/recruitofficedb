@@ -1,7 +1,3 @@
-<?php
-if (!session_id())
-    session_start();
-?>
 <html>
 <head>
 <meta http-equiv="Content-Language" content="en-us">

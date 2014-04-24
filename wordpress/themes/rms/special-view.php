@@ -33,19 +33,19 @@ Do While Not rs.EOF
 	
 		
 	If vPreClientId <> rs.fields(0).Value Then
-		Response.Write "<tr><td bgcolor=""#FFFFB3"" ><b>" + CStr(rs.fields(0).Value) + "</b></td>"
+		echo "<tr><td bgcolor=""#FFFFB3"" ><b>" + CStr(rs.fields(0).Value) + "</b></td>"
 	Else
-		Response.Write "<td bgcolor=""#FFFFB3"">" + "" + "</td>"
+		echo "<td bgcolor=""#FFFFB3"">" + "" + "</td>"
 	End If
 	
 	If vPreEmployeeID <> rs.fields(1).Value Then
-		Response.Write "<td bgcolor=""#FFFFB3""><b><I>" + CStr(rs.fields(1).Value) + "</b></I></td>"
+		echo "<td bgcolor=""#FFFFB3""><b><I>" + CStr(rs.fields(1).Value) + "</b></I></td>"
 	Else
-		Response.Write "<td bgcolor=""#FFFFB3"">" + "" + "</td>"
+		echo "<td bgcolor=""#FFFFB3"">" + "" + "</td>"
 	End If
 
-		Response.Write "<td bgcolor=""#FFFFB3"">" + CStr(rs.fields(2).Value) + "</td>"
-		Response.Write "<td bgcolor=""#FFFFB3"">" + Trim(rs.fields(3).Value) + " " +Trim(rs.fields(4).Value) + "</td></tr>"
+		echo "<td bgcolor=""#FFFFB3"">" + CStr(rs.fields(2).Value) + "</td>"
+		echo "<td bgcolor=""#FFFFB3"">" + Trim(rs.fields(3).Value) + " " +Trim(rs.fields(4).Value) + "</td></tr>"
 	
 		vPreClientId = rs.fields(0).Value
     	vPreEmployeeID = rs.fields(1).Value
@@ -73,7 +73,6 @@ Set cn = Nothing
 <?php
 else :
 	echo '<center><h1>You are not authorized to access this page!</h1></center>';
-	echo '<center><a href="'.home_url().'">Home</a></center>';
 endif;
 
 get_footer();

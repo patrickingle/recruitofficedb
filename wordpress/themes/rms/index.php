@@ -3,7 +3,7 @@
 <?php
 if ( ! is_user_logged_in() ) { // Display WordPress login form:
     $args = array(
-        'redirect' => admin_url(), 
+        'redirect' => home_url(), 
         'form_id' => 'loginform-custom',
         'label_username' => __( 'User ID' ),
         'label_password' => __( 'Password' ),
@@ -11,7 +11,9 @@ if ( ! is_user_logged_in() ) { // Display WordPress login form:
         'label_log_in' => __( 'Log In' ),
         'remember' => true
     );
+    echo '<center>';
     wp_login_form( $args );
+    echo '</center>';
 } else { // If logged in:
 	require dirname(__FILE__).'/main.php';
 }

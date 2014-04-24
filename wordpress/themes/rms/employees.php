@@ -5,6 +5,16 @@
 
 get_header();
 if (current_user_can('rms_admin') || current_user_can('rms_recruiter')) :
+	if (isset($_GET['action']) && $_GET['action'] == 'add') :
+		include dirname(__FILE__).'/employees-add.php';
+	elseif (isset($_GET['action']) && $_GET['action'] == 'save') :
+		if ($_POST['choice'] == 'update') {
+			$emp_id = $_POST['emp_id'];
+		} else {
+			
+		}
+	elseif (isset($_GET['action']) && $_GET['action'] == 'delete') :
+	else :
 ?>
 <p align="center">EMPLOYEES INFORMATION</p>
 <hr align="center" width="71%" size="4" color="#FF0000">
@@ -342,7 +352,7 @@ if (current_user_can('rms_admin') || current_user_can('rms_recruiter')) :
                     <input type="reset" value="Reset" name="B2"></b></p>
                   </td>
                   <td width="170">
-                    <p align="left"><a href="addemp.asp"><b>Add Record</b></a></p>
+                    <p align="left"><a href="?action=add"><b>Add Record</b></a></p>
                   </td>
                   <td width="146">
                     <p align="left">&nbsp;</p>
@@ -362,9 +372,9 @@ if (current_user_can('rms_admin') || current_user_can('rms_recruiter')) :
   </blockquote>
 </blockquote>
 <?php
+	endif;
 else :
 	echo '<center><h1>You are not authorized to access this page!</h1></center>';
-	echo '<center><a href="'.home_url().'">Home</a></center>';
 endif;
 
 get_footer();
