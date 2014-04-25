@@ -5,6 +5,9 @@
 get_header();
 
 if (current_user_can('rms_admin')) :
+	if (isset($_GET['action']) && $_GET['action'] == 'add') :
+		include dirname(__FILE__).'/users-add.php';
+	else :
 ?>
 <p align="center">USERS INFORMATION</p>
 <hr align="center" width="71%" size="4" color="#FF0000">
@@ -14,7 +17,7 @@ if (current_user_can('rms_admin')) :
       <blockquote>
       <h3 align="left"><font face="Comic Sans MS" color="#FF0000">Selection
       Criteria:-</font></h3>
-      <blockquote>
+      <blockquote><center>
         <form method="GET" action="usersearch.asp">
           
           <table border="0" bgcolor="#FFF9DD">
@@ -88,7 +91,7 @@ if (current_user_can('rms_admin')) :
                       </p>
                     </td>
                     <td width="58%">
-                      <p align="left"><b><a href="adduser.asp">Add Record</a></b></p>
+                      <p align="left"><b><a href="?action=add">Add Record</a></b></p>
                     </td>
                   </tr>
                 </table>
@@ -96,16 +99,16 @@ if (current_user_can('rms_admin')) :
             </tr>
           </table>
           
-        </form>
+        </form></center>
       </blockquote>
       </blockquote>
     </blockquote>
   </blockquote>
 </blockquote>
 <?php 
+	endif;
 else :
 	echo '<center><h1>You are not authorized to access this page!</h1></center>';
-	echo '<center><a href="'.home_url().'">Home</a></center>';
 endif;
 get_footer(); 
 ?>

@@ -221,7 +221,7 @@ if (theForm.lang3.value.length > 20)
     <blockquote>
       <blockquote>
         <h3 align="left"><font color="#ff0000" face="Comic Sans MS">Add Record:-</font></h3>
-        <form method="POST" action="addcans.asp" onsubmit="return FrontPage_Form1_Validator(this)" name="FrontPage_Form1">
+        <form method="POST" action="?action=save" onsubmit="return FrontPage_Form1_Validator(this)" name="FrontPage_Form1">
           
           <p align="left"><font color="#FF9933"><u>**********<font face="Comic Sans MS">General
           Information:-</font></u></font></p>
@@ -233,7 +233,7 @@ if (theForm.lang3.value.length > 20)
           <font color="#FF0000">City: </font> <input type="text" name="city" size="20">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <font color="#FF0000">State/Province:</font> <input type="text" name="state_province" size="20"></p>
           <p><font color="#FF0000">&nbsp;&nbsp;&nbsp; </font> Country: <select NAME="country" size="1">
-            <option selected>Pakistan</option>
+            <option>Pakistan</option>
 		
 								<option>Afghanistan</option>
 		
@@ -620,7 +620,7 @@ if (theForm.lang3.value.length > 20)
 		
 								<option>United Kingdom</option>
 
-								<option>United States</option>
+								<option selected>United States</option>
 
 								<option>Uruguay</option>
 		
@@ -744,8 +744,12 @@ if (theForm.lang3.value.length > 20)
           <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <textarea rows="2" name="other_projects" cols="53"></textarea></p>
         <p>&nbsp;</p>
-        <p><u><font face="Comic Sans MS" color="#FF9933">**********General
-        Status:-</font></u></p>
+        <p><u><font face="Comic Sans MS" color="#FF9933">**********Resume:-</font></u></p>
+        <p>
+<?php $settings = array( 'media_buttons' => false, 'textarea_rows' => '30', 'quicktags' => false, 'tinymce' => true, 'textarea_rows' => 20 );
+ wp_editor('','resume',$settings); ?>        
+        </p>
+        <p><u><font face="Comic Sans MS" color="#FF9933">**********General Status:-</font></u></p>
           <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Selection Status: <select size="1" name="select_status">
             <option selected>not_approved</option>
             <option>approved</option>

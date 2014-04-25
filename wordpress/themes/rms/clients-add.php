@@ -127,7 +127,7 @@ function FrontPage_Form1_Validator(theForm)
                 <p align="left"><font color="#FF0000">State/Province: </font><input type="text" name="state_province" size="21"></p>
                 <p align="left"><font color="#FF0000">Country:</font>
                 <select NAME="Country" size="1">
-            <option selected>Pakistan</option>
+            <option>Pakistan</option>
 		
 								<option>Afghanistan</option>
 		
@@ -514,7 +514,7 @@ function FrontPage_Form1_Validator(theForm)
 		
 								<option>United Kingdom</option>
 
-								<option>United States</option>
+								<option selected>United States</option>
 
 								<option>Uruguay</option>
 		
