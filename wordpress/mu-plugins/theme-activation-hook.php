@@ -1,8 +1,8 @@
 <?php
 
-add_action('switch_theme','rms_switch_theme');
+add_action('switch_theme','rms_switch_theme',10,2);
 
-function rms_switch_theme($new_name, $new_theme='') {
+function rms_switch_theme($new_name, $new_theme_obj='') {
     if (isset($_GET['action']) && $_GET['action'] == 'activate') {
 		if (isset($_GET['stylesheet']) && $_GET['stylesheet'] == 'rms') {
 			rms_create_tables();
@@ -14,7 +14,7 @@ function rms_create_tables() {
 	global $wpdb;
 	
 	$sql = "CREATE TABLE IF NOT EXISTS `".$wpdb->prefix."rms_candidates` (
-  `can_id` int(2) DEFAULT NULL,
+  `can_id` int(2) NOT NULL AUTO_INCREMENT,
   `f_name` varchar(6) DEFAULT NULL,
   `l_name` varchar(8) DEFAULT NULL,
   `present_address` varchar(25) DEFAULT NULL,
@@ -46,13 +46,14 @@ function rms_create_tables() {
   `other_projects` varchar(15) DEFAULT NULL,
   `h1_status` varchar(10) DEFAULT NULL,
   `can_location` varchar(3) DEFAULT NULL,
-  `max_institute` varchar(20) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
-
+  `max_institute` varchar(20) DEFAULT NULL,
+  `resume` longtext NOT NULL,
+  PRIMARY KEY (`can_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 	$wpdb->query($sql);
 
 	$sql = "CREATE TABLE IF NOT EXISTS `".$wpdb->prefix."rms_clients` (
-  `client_id` int(2) DEFAULT NULL,
+  `client_id` int(2) NOT NULL AUTO_INCREMENT,
   `cname` varchar(16) DEFAULT NULL,
   `address` varchar(32) DEFAULT NULL,
   `city` varchar(10) DEFAULT NULL,
@@ -64,12 +65,13 @@ function rms_create_tables() {
   `phone2` varchar(10) DEFAULT NULL,
   `fax2` varchar(10) DEFAULT NULL,
   `email2` varchar(10) DEFAULT NULL,
-  `zip_code` int(6) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+  `zip_code` int(6) DEFAULT NULL,
+  PRIMARY KEY (`client_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;";
 	$wpdb->query($sql);
 
 	$sql = "CREATE TABLE IF NOT EXISTS `".$wpdb->prefix."rms_employees` (
-  `emp_id` int(2) DEFAULT NULL,
+  `emp_id` int(2) NOT NULL AUTO_INCREMENT,
   `f_name` varchar(10) DEFAULT NULL,
   `l_name` varchar(9) DEFAULT NULL,
   `present_address` varchar(25) DEFAULT NULL,
@@ -102,9 +104,40 @@ function rms_create_tables() {
   `h1_status` varchar(5) DEFAULT NULL,
   `social_security` varchar(9) DEFAULT NULL,
   `client_id` int(2) DEFAULT NULL,
-  `max_institute` varchar(26) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+  `max_institute` varchar(26) DEFAULT NULL,
+  `resume` longtext NOT NULL,
+  PRIMARY KEY (`emp_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 	$wpdb->query($sql);
+	
+	$sql = "CREATE TABLE IF NOT EXISTS `".$wpdb->prefix."rms_jobs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `jl4u_id` int(11) NOT NULL,
+  `type_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `recruiter_id` int(11) NOT NULL,
+  `title` varchar(80) NOT NULL,
+  `description` longtext NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `outside_location` varchar(80) NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `client_website_listing` varchar(255) NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+	$wpdb->query($sql);
+	
+	$sql = "CREATE TABLE IF NOT EXISTS `".$wpdb->prefix."rms_placement` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `can_id` int(11) NOT NULL,
+  `job_id` int(11) NOT NULL,
+  `recruiter_id` int(11) NOT NULL,
+  `comment` longtext NOT NULL,
+  `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+	$wpdb->query($sql);
+	
 	
 	add_role('rms_admin','RMS Admin',array('rms_admin' => true));
 	add_role('rms_recruiter','RMS Recruiter',array('rms_add_update' => true,'rms_add_can'=>true,'rms_add_emp'=>true));
@@ -145,6 +178,30 @@ function rms_create_tables() {
 		'post_name' => 'clients',
 		'post_title' => 'clients',
 		'page_template' => 'clients.php'
+	);
+	wp_insert_post($page);
+
+	$page = array(
+		'post_type' => 'page',
+		'post_content' => '',
+		'post_parent' => 0,
+		'post_author' => $user_ID,
+		'post_status' => 'publish',
+		'post_name' => 'jobs',
+		'post_title' => 'jobs',
+		'page_template' => 'jobs.php'
+	);
+	wp_insert_post($page);
+
+	$page = array(
+		'post_type' => 'page',
+		'post_content' => '',
+		'post_parent' => 0,
+		'post_author' => $user_ID,
+		'post_status' => 'publish',
+		'post_name' => 'placement',
+		'post_title' => 'placement',
+		'page_template' => 'placement.php'
 	);
 	wp_insert_post($page);
 
